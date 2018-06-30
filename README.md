@@ -17,4 +17,8 @@
 * test with postman:
 * start MongoDB with mongod
 * start nodemon with npm start
-* open postman try GET PUT POST DELETE routes out using correct URI for each
+
+* in postman you can try /api/signup POST route and the /api/signin GET route
+* for the POST you need to pass it a JSON body like so{"username":"max","password":"maxwell"}
+
+* then for the GET you nee to choose the AUthorization tab and select Basic and then enter the username and password that you have just enter in the post

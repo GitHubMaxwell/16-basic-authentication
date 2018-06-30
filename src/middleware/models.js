@@ -3,7 +3,7 @@
 // Read in everything from the models folder
 import requireAll from 'require-dir';
 const models = requireAll('../models');
-console.log('MODELS: ', models);
+// console.log('MODELS: ', models);
 /*
   models: {
     'players': {
