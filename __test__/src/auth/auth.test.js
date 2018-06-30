@@ -2,7 +2,7 @@
 import superagent from 'superagent';
 //need superagent to make the mock http calls
 import mongoose from 'mongoose';
-import user from '../../../src/models/user.js';
+// import user from '../../../src/models/user.js';
 import app from '../../../src/app.js';
 //need app to run the server
 
@@ -50,9 +50,9 @@ describe('AUTH MODULE', () => {
     return superagent.get('http://localhost:8080/api/signin')
       .auth('derp','maxwell')
       //superagent will do all the base64 encoding for us in this .auth
-      .then(response => {
-        // expect(response.statusCode).toEqual(200);
-      })
+      // .then(response => {
+      //   // expect(response.statusCode).toEqual(200);
+      // })
       .catch(response => {
         // console.log('BAD RES.STATUS: ',response.status);
         expect(response.status).toEqual(401);

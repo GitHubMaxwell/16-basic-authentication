@@ -28,7 +28,7 @@ router.post('/api/signup', (req,res,next) => {
     .catch(next);
 });
 
-router.get('/api/signin', auth, (req, res, next) => {
+router.get('/api/signin', auth, (req, res) => {
   console.log('REQ.BODY ', req.body);
   if(!Object.keys(req.body).length){
     badReq(res);
