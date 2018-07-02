@@ -13,12 +13,12 @@
 ## Steps
 * fork/clone code
 * npm install
-* run npm test without having Nodemon (npm start) running but has MongoDB running with mongod in terminal
+* run npm test to see passing POST and GET tests
 * test with postman:
 * start MongoDB with mongod
 * start nodemon with npm start
 
 * in postman you can try /api/signup POST route and the /api/signin GET route
-* for the POST you need to pass it a JSON body like so{"username":"max","password":"maxwell"}
+* for the POST route you need to pass it a JSON body like {"username":"max","email":"max@maxwell.com","password":"maxwell"}
 
-* then for the GET you nee to choose the AUthorization tab and select Basic and then enter the username and password that you have just enter in the post
+* then for the GET you need to choose the Authorization tab and select "Basic" from the dropdown menu and then enter the username, password, and email that you have just entered in the above POST
