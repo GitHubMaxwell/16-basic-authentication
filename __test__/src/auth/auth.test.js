@@ -1,82 +1,79 @@
 'use strict';
-import superagent from 'superagent';
-//need superagent to make the mock http calls
+import {
+  Mockgoose,
+} from 'mockgoose';
 import mongoose from 'mongoose';
-// import user from '../../../src/models/user.js';
-import app from '../../../src/app.js';
-//need app to run the server
+import supertest from 'supertest';
+import {server} from '../../../src/app.js';
+const mockRequest = supertest(server);
+const mockgoose = new Mockgoose(mongoose);
+require('dotenv').config();
 
-function ranName() {
-  return {
-    username: `${Math.random()*(1000-1) + 1}`,
-    password: 'password',
-  };
-}
+jest.setTimeout(60000);
+
+afterAll( () => {
+  mongoose.connection.close();
+});
 
 describe('AUTH MODULE', () => {
 
-  const PORT = 8080;
-
-  beforeAll(()=> {
-    mongoose.connect('mongodb://localhost:27017');
-    app.start(PORT);
-    // done();
+  beforeAll( (done) => {
+    mockgoose.prepareStorage().then(()=>{
+      mongoose.connect('mongodb://localhost:27017/lab-16-test').then(()=>{
+        done();
+      });
+    });
   });
 
-  afterAll(()=> {
-    app.stop();
-    mongoose.connection.close();
+  afterEach((done)=>{
+    mockgoose.helper.reset().then(done);
   });
 
-  // afterEach((done)=> {
-  //   user.remove({}, () => {
-  //     console.log('DELETING MODEL');
-  //     done();
-  //   });
-  // });
-
-  it('gets a 400 on bad login', () => {
-    return superagent.post('http://localhost:8080/api/signup')
-    // dont give it a .auth
-    //   .auth()
-      //superagent will do all the base64 encoding for us in this .auth
+  it('POST - test 400, if no request body has been provided or the body is invalid', () => {
+    return mockRequest.post('/api/signup')
+      // dont give it a .auth
+      // .auth()
+      // superagent will do all the base64 encoding for us in this .auth
       .catch(response => {
         // console.log('BAD RES.STATUS: ',response.status);
         expect(response.status).toEqual(400);
       });
   });
 
-  it('gets a 401 on bad login', () => {
-    return superagent.get('http://localhost:8080/api/signin')
+  it('POST - test 200, if the request body has been provided and is valid', () => {
+    let user = {username: 'khoa', password: 'khoawell', email: 'khoa@khoawell.com'};
+    return mockRequest.post('/api/signup')
+      .send(user)
+      .then(response => {
+        expect(response.status).toEqual(200);
+      });
+  });
+
+  it('GET - test 401, if the user could not be authenticated', () => {
+    return mockRequest.get('/api/signin')
       .auth('derp','maxwell')
       //superagent will do all the base64 encoding for us in this .auth
-      // .then(response => {
-      //   // expect(response.statusCode).toEqual(200);
-      // })
       .catch(response => {
         // console.log('BAD RES.STATUS: ',response.status);
         expect(response.status).toEqual(401);
       });
   });
 
-  it('gets a 200 on good login', () => {
-    let user = ranName();
+  it('GET - test 200, responds with token for a request with a valid basic authorization header', () => {
+    let user = {username: 'khoa', password: 'khoawell', email: 'khoa@khoawell.com'};
     console.log('USER NAME: ', user);
 
-
-    return superagent.post('http://localhost:8080/api/signup')
-      // .auth('max','maxwell')
+    return mockRequest.post('/api/signup')
       .send(user)
-      //in this form the 
       .then( res => {
         console.log('RES: ', res.status);
 
-        return superagent.get('http://localhost:8080/api/signin')
-          .auth(user)
+        return mockRequest.get('/api/signin')
+          .auth('khoa','khoawell')
           .then(response => {
-            console.log('GOOD RES.STATUS: ',response.status);
             expect(response.statusCode).toEqual(200);
           });
       });
   });
+
 });

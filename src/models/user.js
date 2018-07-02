@@ -6,8 +6,10 @@ import jwt from 'jsonwebtoken';
 
 const userSchema = new mongoose.Schema({
   // username/password has been passed in from the client as raw text text so its unencrypted
+  email: {type: String, required: true, unique:true},
   username: {type: String, required: true, unique:true},
   password: {type: String, required: true},
+  
 });
 
 //with pre you pass next in in the CB

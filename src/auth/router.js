@@ -30,9 +30,9 @@ router.post('/api/signup', (req,res,next) => {
 
 router.get('/api/signin', auth, (req, res) => {
   console.log('REQ.BODY ', req.body);
-  if(!Object.keys(req.body).length){
-    badReq(res);
-  }
+  // if(!Object.keys(req.body).length){
+  //   badReq(res);
+  // }
   // the auth middleware will run before we even get to the res.cookie part of this code
   res.cookie('Token', req.token);
   res.send('Hi');
