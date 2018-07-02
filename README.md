@@ -8,7 +8,7 @@
 
 * TRAVIS: https://travis-ci.com/GitHubMaxwell/16-basic-authentication
 * HEROKU: https://lab16-max.herokuapp.com/
-* GitHUB PR:
+* GitHUB PR: https://github.com/GitHubMaxwell/16-basic-authentication/pull/1
 
 ## Steps
 * fork/clone code
