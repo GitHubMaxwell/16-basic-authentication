@@ -18,7 +18,16 @@
 * start MongoDB with mongod
 * start nodemon with npm start
 
-* in postman you can try /api/signup POST route and the /api/signin GET route
-* for the POST route you need to pass it a JSON body like {"username":"max","email":"max@maxwell.com","password":"maxwell"}
+=================
+* i dont believe you need this but heres the MONGOD_URI and other env variables (if your testing locally dont use the heroku one)
+```
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/lab-16
+MONGODB_URI=mongodb://heroku_96zz0t43:bbucc67tofc0ijds65kpl7upvp@ds231951.mlab.com:31951/heroku_96zz0t43
+APP_SECRET=maxwell
+```
+To Test with Heroku
 
-* then for the GET you need to choose the Authorization tab and select "Basic" from the dropdown menu and then enter the username, password, and email that you have just entered in the above POST
+1. First you need to do a sign up POST request on `https://lab16-max.herokuapp.com/api/signup` with a Body like this `{"username": "max", "password": "maxwell", "email": "max@maxwell.com"}`. You'll get a 200 OK on success and a 400 bad request on failure
+
+2. The you can do a sign in GET request on `https://lab16-max.herokuapp.com/api/signin`. Go the the Authorization tab and select Basic Auth from the list. enter the above username and password and press send. youll recieve 200 OK on success and a 401 on failure.
