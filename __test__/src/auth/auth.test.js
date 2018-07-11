@@ -34,8 +34,8 @@ describe('AUTH MODULE', () => {
       // dont give it a .auth
       // .auth()
       // superagent will do all the base64 encoding for us in this .auth
-      .catch(response => {
-        // console.log('BAD RES.STATUS: ',response.status);
+      .then(response => {
+        console.log('BAD RES.STATUS: ',response.status);
         expect(response.status).toEqual(400);
       });
   });
@@ -53,7 +53,7 @@ describe('AUTH MODULE', () => {
     return mockRequest.get('/api/signin')
       .auth('derp','maxwell')
       //superagent will do all the base64 encoding for us in this .auth
-      .catch(response => {
+      .then(response => {
         // console.log('BAD RES.STATUS: ',response.status);
         expect(response.status).toEqual(401);
       });
