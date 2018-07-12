@@ -22,10 +22,10 @@
 * i dont believe you need this but heres the MONGOD_URI and other env variables (if your testing locally dont use the heroku one)
 
 ```
-PORT=3000
-MONGODB_URI=mongodb://localhost:27017/lab-16
-MONGODB_URI=mongodb://heroku_96zz0t43:bbucc67tofc0ijds65kpl7upvp@ds231951.mlab.com:31951/heroku_96zz0t43
-APP_SECRET=maxwell
+PORT=
+MONGODB_URI=
+MONGODB_URI=
+APP_SECRET=
 ```
 To Test with Heroku
 
